@@ -49,4 +49,5 @@ public enum MessageState {
     case byFriend
     case offline
     case error
+    case none
 }
