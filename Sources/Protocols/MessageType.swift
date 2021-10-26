@@ -50,4 +50,5 @@ public enum MessageState {
     case offline
     case error
     case none
+    case sending
 }
