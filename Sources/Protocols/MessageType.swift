@@ -41,7 +41,6 @@ public protocol MessageType {
     var kind: MessageKind { get }
 
     var state: MessageState { get }
-
 }
 
 public enum MessageState {
