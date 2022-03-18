@@ -101,7 +101,14 @@ struct MockLinkItem: LinkItem {
     let thumbnailImage: UIImage
 }
 
+struct MockCallItem: CallItem {
+    var hasVideo: Bool
+    var duration: Int
+    var title: String
+}
+
 internal struct MockMessage: MessageType {
+    var state: MessageState
 
     var messageId: String
     var sender: SenderType {
@@ -112,11 +119,12 @@ internal struct MockMessage: MessageType {
 
     var user: MockUser
 
-    private init(kind: MessageKind, user: MockUser, messageId: String, date: Date) {
+    private init(kind: MessageKind, user: MockUser, messageId: String, date: Date, state: MessageState = .none) {
         self.kind = kind
         self.user = user
         self.messageId = messageId
         self.sentDate = date
+        self.state = state
     }
     
     init(custom: Any?, user: MockUser, messageId: String, date: Date) {
@@ -166,5 +174,9 @@ internal struct MockMessage: MessageType {
 
     init(linkItem: LinkItem, user: MockUser, messageId: String, date: Date) {
         self.init(kind: .linkPreview(linkItem), user: user, messageId: messageId, date: date)
+    }
+
+    init(callItem: CallItem, user: MockUser, messageId: String, date: Date) {
+        self.init(kind: .call(callItem), user: user, messageId: messageId, date: date)
     }
 }

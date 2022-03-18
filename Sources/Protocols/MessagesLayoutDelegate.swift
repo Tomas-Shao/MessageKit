@@ -227,6 +227,17 @@ public protocol MessagesLayoutDelegate: AnyObject {
     /// - Note:
     ///   The default implementation will throw fatalError(). You must override this method if you are using messages with MessageType.custom.
     func customCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator
+
+    /// Call cell size calculator for message with MessageType.call.
+    ///
+    /// - Parameters:
+    ///   - message: The audio message
+    ///   - indexPath: The `IndexPath` of the cell.
+    ///   - messagesCollectionView: The `MessagesCollectionView` in which this cell will be displayed.
+    ///
+    /// - Note:
+    ///   The default implementation will return nil. You must override this method if you are using your own cell for messages with MessageType.call.
+    func callCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator?
 }
 
 public extension MessagesLayoutDelegate {
@@ -303,6 +314,11 @@ public extension MessagesLayoutDelegate {
     }
     
     func contactCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator? {
+        return nil
+    }
+
+
+    func callCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator? {
         return nil
     }
     

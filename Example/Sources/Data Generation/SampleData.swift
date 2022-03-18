@@ -46,6 +46,7 @@ final internal class SampleData {
         case Phone
         case Custom
         case ShareContact
+        case call
     }
 
     let system = MockUser(senderId: "000000", displayName: "System")
@@ -109,6 +110,10 @@ final internal class SampleData {
             teaser: "A community-driven replacement for JSQMessagesViewController - MessageKit",
             thumbnailImage: UIImage(named: "mkorglogo")!
         )
+    }
+
+    let callItem: (() -> MockCallItem) = {
+        MockCallItem(hasVideo: true, duration: 100, title: "聊天时长")
     }
 
     func attributedString(with text: String) -> NSAttributedString {
@@ -205,6 +210,8 @@ final internal class SampleData {
             return MockMessage(custom: "Someone left the conversation", user: system, messageId: uniqueID, date: date)
         case .ShareContact:
             return MockMessage(contact: contactsToShare.random()!, user: user, messageId: uniqueID, date: date)
+        case .call:
+            return MockMessage(callItem: callItem(), user: user, messageId: uniqueID, date: date)
         }
     }
     // swiftlint:enable cyclomatic_complexity
