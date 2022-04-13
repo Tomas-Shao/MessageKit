@@ -7,13 +7,13 @@
 
 import Foundation
 
-    /// A protocol used to represent the data for an audio message.
+/// A protocol used to represent the data for an audio message.
 public protocol CallItem {
 
-        /// The url where the audio file is located.
+    /// The url where the audio file is located.
     var hasVideo: Bool { get }
 
-        /// The audio file duration in seconds.
+    /// The call duration in seconds.
     var duration: Int { get }
 
     var title: String { get }
@@ -22,7 +22,7 @@ public protocol CallItem {
 extension CallItem {
 
     var displayText: String {
-        title + " " + secondsToHoursMinutesSeconds(duration)
+        duration <= 0 ? title : title + " " + secondsToHoursMinutesSeconds(duration)
     }
 
     private func secondsToHoursMinutesSeconds(_ seconds: Int) -> String {
