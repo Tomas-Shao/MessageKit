@@ -1,34 +1,25 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/MessageKit/MessageKit/master/Assets/mklogo.png" title="MessageKit logo" width="400">
-  
-  A community-driven replacement for JSQMessagesViewController https://messagekit.github.io
+  <img src="https://raw.githubusercontent.com/MessageKit/MessageKit/master/Assets/mklogo.png" title="MessageKit logo" width="270">
 </p>
-
-[![Tests](https://github.com/MessageKit/MessageKit/workflows/Tests/badge.svg)](https://github.com/MessageKit/MessageKit/actions?query=workflow%3A%22Tests%22)
-[![Build framework](https://github.com/MessageKit/MessageKit/workflows/Build%20Framework/badge.svg)](https://github.com/MessageKit/MessageKit/actions?query=workflow%3A%22Build+Framework%22)
-[![Build example app](https://github.com/MessageKit/MessageKit/workflows/Build%20Example%20app/badge.svg)](https://github.com/MessageKit/MessageKit/actions?query=workflow%3A%22PR+Example+app%22)
-[![Danger](https://github.com/MessageKit/MessageKit/workflows/Danger/badge.svg)](https://github.com/MessageKit/MessageKit/actions?query=workflow%3A%22Danger%22)
-
-[![codecov](https://codecov.io/gh/MessageKit/MessageKit/branch/master/graph/badge.svg)](https://codecov.io/gh/MessageKit/MessageKit)
-<a href="https://swift.org">
-<img src="https://img.shields.io/badge/Swift-5-green.svg" alt="Swift" />
-</a>
-<a href="https://cocoapods.org/">
-<img src="https://cocoapod-badges.herokuapp.com/v/MessageKit/badge.png" alt="CocoaPods">
-</a>
-<a href="https://developer.apple.com/xcode">
-<img src="https://img.shields.io/badge/Xcode-12-green.svg" alt="Xcode">
-</a>
-<a href="https://developer.apple.com/xcode">
-<img src="https://img.shields.io/badge/Xcode-13-blue.svg" alt="Xcode">
-</a>
-<a href="https://opensource.org/licenses/MIT">
-<img src="https://img.shields.io/badge/License-MIT-red.svg" alt="MIT">
-</a>
-<a href="https://github.com/MessageKit/MessageKit/issues">
-<img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat" alt="Contributions Welcome">
-</a>
-
+<p align="center">
+  A community-driven replacement for JSQMessagesViewController
+</p>
+<p align="center">
+  <a href="https://swiftpackageindex.com/MessageKit/MessageKit">
+    <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FMessageKit%2FMessageKit%2Fbadge%3Ftype%3Dswift-versions"/>
+  <a href="https://swiftpackageindex.com/MessageKit/MessageKit">
+    <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FMessageKit%2FMessageKit%2Fbadge%3Ftype%3Dplatforms"/>
+  <a href="https://developer.apple.com/xcode">
+  <img src="https://img.shields.io/badge/Xcode-13-blue.svg" alt="Xcode">
+  </a>
+  <a href="./LICENSE.md">
+  <img src="https://img.shields.io/github/license/MessageKit/MessageKit?color=red" alt="MIT">
+  </a>
+  <a href="https://github.com/MessageKit/MessageKit/issues">
+  <img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat" alt="Contributions Welcome">
+  </a>
+</p>
+<br>
 <p align="center">
   <img src="https://raw.githubusercontent.com/MessageKit/MessageKit/master/Assets/TypingIndicator.png" title="MessageKit header" width="400">
 </p>
@@ -41,34 +32,9 @@
 - Provide an awesome Open Source project for the iOS open source community.
 - Help others learn.
 
-## Vision
-
-See [VISION.md](https://github.com/MessageKit/MessageKit/blob/master/VISION.md) for Goals, Scope, & Technical Considerations.
-
 ## Installation
 
-### [CocoaPods](https://cocoapods.org/) **Recommended**
-
-```ruby
-# Swift 5.3
-pod 'MessageKit'
-```
-
-> For Swift 5.0 use version 3.3.0
-
-```ruby
-# Swift 5.0
-pod 'MessageKit', '~> 3.3.0'
-```
-
-> For Swift 4.2 use version 3.0.0
-
-```ruby
-# Swift 4.2
-pod 'MessageKit', '~> 3.0.0'
-```
-
-### [Swift Package Manager](https://swift.org/package-manager/)
+### [Swift Package Manager](https://swift.org/package-manager/) - **Recommended**
 
 Swift 5.3 in Xcode 12 [added support](https://github.com/apple/swift-evolution/blob/master/proposals/0271-package-manager-resources.md) for assets in Swift Packages.
 You can [just add](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app) MessageKit package to your project by entering it's repository URL
@@ -76,20 +42,30 @@ You can [just add](https://developer.apple.com/documentation/xcode/adding_packag
 ```
 https://github.com/MessageKit/MessageKit
 ```
-Older versions of Swift and XCode don't support MessageKit via SPM.
+Older versions of Swift and Xcode don't support MessageKit via SPM.
 
 ### [Manual](https://github.com/MessageKit/MessageKit/blob/master/Documentation/MANUAL_INSTALLATION.md)
 
 ## Requirements
 
-- **iOS 12** or later
-- **Swift 5.3** or later
+- **iOS 13** or later
+- **Swift 5.5** or later
+
+> For iOS 12 or CocoaPods please use version 3.8.0
 
 > For iOS 11 please use version 3.3.0
 
 > For iOS 9 and iOS 10 please use version 3.1.1
 
 ## Getting Started
+
+Please have a look at the [Quick Start guide](https://github.com/MessageKit/MessageKit/blob/master/Documentation/QuickStart.md) and the [FAQs](https://github.com/MessageKit/MessageKit/blob/master/Documentation/FAQs.md).
+
+We recommend you start by looking at the [Example](https://github.com/MessageKit/MessageKit/tree/master/Example) project or write a question with the "messagekit" tag on [Stack Overflow](https://stackoverflow.com/questions/tagged/messagekit). You can also look at previous issues here on GitHub with the **"Question"** tag.
+
+For more on how to use the MessageInputBar, see the dependency it is based on [InputBarAccessoryView](https://github.com/nathantannar4/InputBarAccessoryView). You can also see this [short guide]([https://github.com/MessageKit/MessageKit/blob/master/Documentation/MessageInputBar.md)
+
+Check out the full documentation [here](https://messagekit.github.io/MessageKit/documentation/messagekit).
 
 ### Cell Structure
 
@@ -101,21 +77,13 @@ Each default cell is a subclass of [`MessageContentCell`](https://github.com/Mes
 
 This structure will allow you to create a layout that suits your needs as you can customize the size, appearance and padding of each. If you need something more advanced you can implement a custom cell, which we show how to do in the [Example](https://github.com/MessageKit/MessageKit/tree/master/Example) project.
 
-### MessageInputBar Structure
+### InputBarAccessoryView Structure
 
 <p>
   <img src="https://raw.githubusercontent.com/MessageKit/MessageKit/master/Assets/InputBarAccessoryViewLayout.png" title="InputBarAccessoryViewLayout">
 </p>
 
-The `MessageInputBar`, derived from [InputBarAccessoryView](https://github.com/nathantannar4/InputBarAccessoryView) is a flexible and robust way of creating any kind of input layout you wish. It is self-sizing which means as the user types it will grow to fill available space. It is centered around the `middleContentView` which by default holds the `InputTextView`. This is surrounded by `InputStackView`'s that will also grow in high based on the needs of their subviews `intrinsicContentSize`. See the [Example](https://github.com/MessageKit/MessageKit/tree/master/Example) project for examples on how to tailor the layout for your own needs.
-
-### Guides
-
-Please have a look at the [Quick Start guide](https://github.com/MessageKit/MessageKit/blob/master/Documentation/QuickStart.md) and the [FAQs](https://github.com/MessageKit/MessageKit/blob/master/Documentation/FAQs.md).
-
-We recommend you start by looking at the [Example](https://github.com/MessageKit/MessageKit/tree/master/Example) project or write a question with the "messagekit" tag on [Stack Overflow](https://stackoverflow.com/questions/tagged/messagekit). You can also look at previous issues here on GitHub with the **"Question"** tag.
-
-For more on how to use the MessageInputBar, see the dependency it is based on [InputBarAccessoryView](https://github.com/nathantannar4/InputBarAccessoryView). You can also see this [short guide]([https://github.com/MessageKit/MessageKit/blob/master/Documentation/MessageInputBar.md)
+The `InputBarAccessoryView`, 3rd party dependency from [InputBarAccessoryView](https://github.com/nathantannar4/InputBarAccessoryView) is a flexible and robust way of creating any kind of input layout you wish. Check the repo and examples there for more info.
 
 ## Default Cells
 
@@ -153,6 +121,11 @@ If you choose to use the `.custom` kind you are responsible for all of the cells
 
 ## Contributing
 
+[![Tests](https://github.com/MessageKit/MessageKit/workflows/Tests/badge.svg)](https://github.com/MessageKit/MessageKit/actions?query=workflow%3A%22Tests%22)
+[![Build framework](https://github.com/MessageKit/MessageKit/workflows/Build%20Framework/badge.svg)](https://github.com/MessageKit/MessageKit/actions?query=workflow%3A%22Build+Framework%22)
+[![Build example app](https://github.com/MessageKit/MessageKit/workflows/Build%20Example%20app/badge.svg)](https://github.com/MessageKit/MessageKit/actions?query=workflow%3A%22PR+Example+app%22)
+[![Danger](https://github.com/MessageKit/MessageKit/workflows/Danger/badge.svg)](https://github.com/MessageKit/MessageKit/actions?query=workflow%3A%22Danger%22)
+
 Great! Look over these things first.
 
 - Please read our [Code of Conduct](https://github.com/MessageKit/MessageKit/blob/master/CODE_OF_CONDUCT.md)
@@ -180,6 +153,8 @@ Interested in contributing to MessageKit? Click here to join our [Slack](https:/
 
 Add your app to the list of apps using this library and make a pull request.
 
+- [ClassDojo](https://www.classdojo.com)
+- [Connect Messaging](https://apps.apple.com/app/id1607268774)
 - [Ring4](https://www.ring4.com)
 - [Formacar](https://itunes.apple.com/ru/app/id1180117334)
 - [HopUp](https://itunes.apple.com/us/app/hopup-airsoft-community/id1128903141?mt=8)
@@ -195,6 +170,7 @@ Add your app to the list of apps using this library and make a pull request.
 - [HER](https://apps.apple.com/us/app/id573328837)
 - [Girlfriend Plus](https://apps.apple.com/us/app/girlfriend-plus/id1011637655)
 - [Noon Happen](https://apps.apple.com/app/id1477310602)
+- [XPASS](https://apps.apple.com/cz/app/id1596773834)
 
 _Please provide attribution, it is greatly appreciated._
 
