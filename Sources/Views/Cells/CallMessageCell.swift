@@ -15,7 +15,7 @@ open class CallMessageCall: MessageContentCell {
         let nameLabel = UILabel(frame: CGRect.zero)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.numberOfLines = 0
-        nameLabel.textColor = .black
+        nameLabel.textColor = .white
         return nameLabel
     }()
 
