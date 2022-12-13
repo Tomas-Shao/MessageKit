@@ -56,9 +56,10 @@ open class CallMessageCall: MessageContentCell {
 
     open override func configure(with message: MessageType, at indexPath: IndexPath, and messagesCollectionView: MessagesCollectionView) {
         super.configure(with: message, at: indexPath, and: messagesCollectionView)
-
+        let textColor = messagesCollectionView.messagesDisplayDelegate?.textColor(for: message, at: indexPath, in: messagesCollectionView)
         if case let .call(callItem) = message.kind {
             nameLabel.text = callItem.displayText
+            nameLabel.textColor = textColor
         }
     }
 
