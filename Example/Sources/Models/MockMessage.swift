@@ -65,7 +65,6 @@ struct MockCallItem: CallItem {
     var title: String
 }
 
-
 // MARK: - MockAudioItem
 
 private struct MockAudioItem: AudioItem {
@@ -114,14 +113,13 @@ struct MockLinkItem: LinkItem {
 internal struct MockMessage: MessageType {
   // MARK: Lifecycle
 
-  var state: MessageState
+  var state: MessageState = .none
 
-  private init(kind: MessageKind, user: MockUser, messageId: String, date: Date, state: MessageState = .none) {
+  private init(kind: MessageKind, user: MockUser, messageId: String, date: Date) {
     self.kind = kind
     self.user = user
     self.messageId = messageId
     sentDate = date
-    self.state = state
   }
 
   init(custom: Any?, user: MockUser, messageId: String, date: Date) {
@@ -174,7 +172,7 @@ internal struct MockMessage: MessageType {
   }
 
   init(callItem: CallItem, user: MockUser, messageId: String, date: Date) {
-      self.init(kind: .call(callItem), user: user, messageId: messageId, date: date)
+    self.init(kind: .call(callItem), user: user, messageId: messageId, date: date)
   }
 
   // MARK: Internal
