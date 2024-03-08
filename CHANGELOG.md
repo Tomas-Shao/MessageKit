@@ -76,6 +76,93 @@ Version 4.0.0 comes with couple of breaking changes, please refer to [MIGRATION_
 
 ## 3.8.0
 
+### Updated
+
+- Update InputBarAccessoryView to fix some crashes and issues by [@kaspik](https://github.com/Kaspik)
+    
+### Changed
+
+### Removed
+
+## 4.2.0
+
+### Added
+
+### Fixed
+
+- Fix Advanced example hiding indicator [#1792](https://github.com/MessageKit/MessageKit/pull/1792) by [@kaspik](https://github.com/Kaspik)
+- Fix hiding typing indicator crash [#1804](https://github.com/MessageKit/MessageKit/pull/1804) by [@Zandor300](https://github.com/Zandor300)
+    
+### Changed
+
+- Update Github Actions and bump dependencies by [@kaspik](https://github.com/Kaspik)
+
+### Removed
+
+## 4.1.0
+
+### Added
+
+- Swiftformat and Swiftlint SwiftPM plugins used for linting and formatting the codebase [#1729](https://github.com/MessageKit/MessageKit/pull/1729) by [@martinpucik](https://github.com/martinpucik)
+
+### Fixed
+
+- Fixed iOS 13 deprecation warnings [#1730](https://github.com/MessageKit/MessageKit/pull/1730) by [@kaspik](https://github.com/Kaspik)
+- SwiftPM plugins setup [#1732](https://github.com/MessageKit/MessageKit/pull/1732) by [@martinpucik](https://github.com/martinpucik)
+    
+### Changed
+
+- Updated InputBarAccessoryView to v6.1.1 by [@kaspik](https://github.com/Kaspik)
+
+## 4.0.0
+
+Version 4.0.0 comes with couple of breaking changes, please refer to [MIGRATION_GUIDE.md](https://github.com/MessageKit/MessageKit/blob/main/Documentation/MIGRATION_GUIDE.md) for easy transition from V3 to V4.
+
+### Added
+
+- New method in `MessagesLayoutDelegate` for setting message avatar size [ddfc814](https://github.com/MessageKit/MessageKit/commit/ddfc814d325ee5aa238484c90128d32e5a72a49b) by [@martinpucik](https://github.com/martinpucik)
+- `MessageInputBarKind` enum for customizing `messageInputBar` inside `inputContainerView` [#1707](https://github.com/MessageKit/MessageKit/pull/1707) by [@martinpucik](https://github.com/martinpucik)
+
+### Changed
+   
+- **Breaking change**: Dropped CocoaPods support
+- **Breaking change**: Dropped support for iOS 12 [2bd234b](https://github.com/MessageKit/MessageKit/commit/2bd234b1e878f392089f166d6868ce644d6c9e95) by [@martinpucik](https://github.com/martinpucik)
+- **Breaking change**: Moved messageInputBar from inputAccessoryView to a subview in MessagesViewController [#1704](https://github.com/MessageKit/MessageKit/pull/1704) by [@martinpucik](https://github.com/martinpucik)
+- **Breaking change**: Renamed `func currentSender() -> SenderType` to `var currentSender: SenderType` [#1714](https://github.com/MessageKit/MessageKit/pull/1714) by [@martinpucik](https://github.com/martinpucik)
+- **Deprecation**: Deprecated `maintainPositionOnKeyboardFrameChangedMoved` in favor of `maintainPositionOnInputBarHeightChanged` which better describes the intended use of this property [#1704](https://github.com/MessageKit/MessageKit/pull/1705) by [@martinpucik](https://github.com/martinpucik)
+- **Breaking change**: Added an argument to `messageContainerMaxWidth` [cd4f75b](https://github.com/MessageKit/MessageKit/commit/cd4f75b561129fc25e6c4576000e5a92ccd81cad) by [@martinpucik](https://github.com/martinpucik)
+    ```swift
+    MessageSizeCalculator.messageContainerMaxWidth(for message: MessageType) -> CGFloat
+    ```
+    now has IndexPath argument
+    ```swift
+    MessageSizeCalculator.messageContainerMaxWidth(for message: MessageType, at indexPath: IndexPath) -> CGFloat
+    ```
+- **Breaking change**: Added an argument to `messageContainerSize` [cd4f75b](https://github.com/MessageKit/MessageKit/commit/cd4f75b561129fc25e6c4576000e5a92ccd81cad) by [@martinpucik](https://github.com/martinpucik)
+    ```swift
+    MessageSizeCalculator.messageContainerSize(for message: MessageType) -> CGSize
+    ```
+    now has IndexPath argument 
+    ```swift
+    MessageSizeCalculator.messageContainerSize(for message: MessageType, at indexPath: IndexPath) -> CGSize
+    ```
+- Updated InputBarAccessoryView to v6.1.0 [#1716](https://github.com/MessageKit/MessageKit/pull/1716) by [@martinpucik](https://github.com/martinpucik)
+- Observe inputBar frame change to update collectionView bottom inset instead of keyboard show/hide notifications [#1726](https://github.com/MessageKit/MessageKit/pull/1726) by [@martinpucik](https://github.com/martinpucik)
+
+### Fixed
+
+- Fixed iOS 13 deprecation warnings [#1715](https://github.com/MessageKit/MessageKit/pull/1715) by [@kaspik](https://github.com/Kaspik)
+- Updating bottom chat collectionView inset after InputBar container view frame change [#1725](https://github.com/MessageKit/MessageKit/pull/1725) by [@martinpucik](https://github.com/martinpucik)
+
+### Removed
+
+- NSConstraintLayoutSet.swift [#1700](https://github.com/MessageKit/MessageKit/pull/1700) by [@martinpucik](https://github.com/martinpucik) 
+- Deprecated `Sender` struct. Clients should use `SenderType` protocol [#1713](https://github.com/MessageKit/MessageKit/pull/1713) by [@martinpucik](https://github.com/martinpucik)
+- Unavailable `MessageInputBar` and `MessageInputBarDelegate`. Clients should use `InputBarAccessoryView` and `InputBarAccessoryViewDelegate` [#1713](https://github.com/MessageKit/MessageKit/pull/1713) by [@martinpucik](https://github.com/martinpucik)
+- `func scrollToBottom(animated:)` on `MessagesCollectionView`. Clients should use `func scrollToLastItem(:)` [#1713](https://github.com/MessageKit/MessageKit/pull/1713) by [@martinpucik](https://github.com/martinpucik)
+
+## 3.8.0
+
 ### Added
 
 - New methods in `MessagesLayoutDelegate` for adjusting alignment of message top and bottom labels [#1671](https://github.com/MessageKit/MessageKit/pull/1671) by [@martinpucik](https://github.com/martinpucik)
@@ -315,6 +402,11 @@ Version 4.0.0 comes with couple of breaking changes, please refer to [MIGRATION_
 [#912](https://github.com/MessageKit/MessageKit/pull/912) by [@julienkode](https://github.com/JulienKode)
 
 ## [2.0.0-beta.1](https://github.com/MessageKit/MessageKit/releases/tag/2.0.0-beta.1)
+
+### Fixed
+
+- Fixed `boundingRect(with:options:)` miscalculation of `MessageLabel` by using `NSLayoutManager`, like text `Ꮚ˘̴͈́ꈊ˘̴͈̀Ꮚ⋆✩`、`Tomorrow is the day`.
+[#824](https://github.com/MessageKit/MessageKit/pull/824) by [@zhongwuzw](https://github.com/zhongwuzw).
 
 ### Changed
 

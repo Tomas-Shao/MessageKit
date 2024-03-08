@@ -184,7 +184,6 @@ open class MessagesCollectionViewFlowLayout: UICollectionViewFlowLayout {
       audioMessageSizeCalculator,
       contactMessageSizeCalculator,
       linkPreviewMessageSizeCalculator,
-
     ]
   }
 

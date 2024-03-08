@@ -71,5 +71,4 @@ public enum MessageKind {
 //    case system(String)
 //
 //    case placeholder
-
 }
