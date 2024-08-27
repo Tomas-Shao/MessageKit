@@ -190,7 +190,7 @@ final class AdvancedExampleViewController: ChatViewController {
     return messageList[indexPath.section].user == messageList[indexPath.section + 1].user
   }
 
-  func setTypingIndicatorViewHidden(_ isHidden: Bool, animated: Bool, performUpdates updates: (() -> Void)? = nil) {
+    func setTypingIndicatorViewHidden(_ isHidden: Bool, animated: Bool, performUpdates updates: (() -> Void)? = nil) {
     updateTitleView(title: "MessageKit", subtitle: isHidden ? "2 Online" : "Typing...")
     setTypingIndicatorViewHidden(isHidden, animated: animated, whilePerforming: updates) { [weak self] success in
       if success, self?.isLastSectionVisible() == true {

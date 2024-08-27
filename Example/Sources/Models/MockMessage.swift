@@ -113,24 +113,12 @@ struct MockLinkItem: LinkItem {
 internal struct MockMessage: MessageType {
   // MARK: Lifecycle
 
-  var state: MessageState
-
-  var messageId: String
-  var sentDate: Date
-  var kind: MessageKind
-
-  var user: MockUser
-
-  var sender: SenderType {
-    user
-  }
-
   private init(kind: MessageKind, user: MockUser, messageId: String, date: Date, state: MessageState = .none) {
     self.kind = kind
     self.user = user
     self.messageId = messageId
-    sentDate = date
     self.state = state
+    sentDate = date
   }
 
   init(custom: Any?, user: MockUser, messageId: String, date: Date) {
@@ -185,4 +173,17 @@ internal struct MockMessage: MessageType {
   init(callItem: CallItem, user: MockUser, messageId: String, date: Date) {
       self.init(kind: .call(callItem), user: user, messageId: messageId, date: date)
   }  
+
+  // MARK: Internal
+  var state: MessageState
+
+  var messageId: String
+  var sentDate: Date
+  var kind: MessageKind
+
+  var user: MockUser
+
+  var sender: SenderType {
+    user
+  }
 }
