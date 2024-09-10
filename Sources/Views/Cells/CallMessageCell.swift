@@ -22,7 +22,6 @@ open class CallMessageCall: MessageContentCell {
     public lazy var callIcon: UIImageView = {
         let view = UIImageView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.image = UIImage.messageKitImageWith(type: .call)
         return view
     }()
 
@@ -60,6 +59,7 @@ open class CallMessageCall: MessageContentCell {
         if case let .call(callItem) = message.kind {
             nameLabel.text = callItem.displayText
             nameLabel.textColor = textColor
+            callIcon.image = UIImage.messageKitImageWith(type: callItem.hasVideo ? .video_call : .audio_call)
         }
     }
 

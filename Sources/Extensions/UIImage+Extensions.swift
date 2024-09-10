@@ -28,7 +28,8 @@ public enum ImageType: String {
   case play
   case pause
   case disclosure
-  case call
+  case audio_call
+  case video_call
 }
 
 /// This extension provide a way to access image resources with in framework
