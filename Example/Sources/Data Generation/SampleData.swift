@@ -113,10 +113,25 @@ final internal class SampleData {
   }
 
   let callItem: (() -> CallData) = {
-    CallData(type: .audio, duration: 30.0, date: Date(), isOutgoing: true)
+      [CallData(type: .audio, duration: 30.0, date: Date(), isOutgoing: true),
+       CallData(type: .video, duration: 40.0, date: Date(), isOutgoing: false)].random()!
   }
    let transactionItem: (() -> TransactionData) = {
-       TransactionData(date: Date(), amount: "200", currency: "BGL", status: "success", detailsURL: URL(string: "https://www.baidu.com")!)
+       [TransactionData(date: Date(), amount: "200", currency: "BGL", status: "pending", detailsURL: URL(string: "https://www.baidu.com")!),
+        TransactionData(date: Date(), amount: "400", currency: "ETH", status: "done", detailsURL: URL(string: "https://www.baidu.com")!)].random()!
+
+//       转完账以后，回到聊天界面
+//       should show the payment in chat view
+//       Date 09/18/2004 -> 不需要
+//       [transfer xxx ETH ]
+//       success or failed
+//       Clicked to show the details (therescan windows) // 不展示 show details
+
+       // 1. 转账的时候如果主动Reject，则展示 TransactionData(date: Date(), amount: "200", currency: "BGL", status: "Cancel", detailsURL: nil)! -> save msg into DB
+       // 2. 转账的时候如果成功拿到tx, 则展示 TransactionData(date: Date(), amount: "200", currency: "BGL", status: "", detailsURL: "therscan/tx")! -> save msg into DB and sending msg to friend using carrier.
+       // 3. 转账的时候 如果没有点击reject和approval，则nothing to do.
+       // 4. Add ChainID
+       // 5. Remove Date
    }
 
   var currentSender: MockUser {
