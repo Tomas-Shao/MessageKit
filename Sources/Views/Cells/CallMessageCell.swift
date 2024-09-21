@@ -1,66 +1,141 @@
 //
-//  File.swift
+//  CallCell.swift
 //  
 //
 //  Created by Tomas Shao on 2022/3/18.
 //
 
-import Foundation
 import UIKit
 
-open class CallMessageCall: MessageContentCell {
+public enum CallType {
+    case audio
+    case video
+}
 
-        /// The label that display contact name
-    public lazy var nameLabel: UILabel = {
-        let nameLabel = UILabel(frame: CGRect.zero)
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.numberOfLines = 0
-        nameLabel.textColor = .white
-        return nameLabel
-    }()
+public struct CallData {
+    public let type: CallType
+    public let duration: TimeInterval
+    public let date: Date
+    public let isOutgoing: Bool
 
-    public lazy var callIcon: UIImageView = {
-        let view = UIImageView(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-        // MARK: - Methods
-    open override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
-        super.apply(layoutAttributes)
-        guard let attributes = layoutAttributes as? MessagesCollectionViewLayoutAttributes else {
-            return
-        }
-        nameLabel.font = attributes.messageLabelFont
+    public init(type: CallType, duration: TimeInterval, date: Date, isOutgoing: Bool) {
+        self.type = type
+        self.duration = duration
+        self.date = date
+        self.isOutgoing = isOutgoing
     }
+}
 
+open class CallCell: MessageContentCell {
+    
+    // MARK: - Public Properties
+    
+    public lazy var iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    public lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .black
+        return label
+    }()
+    
+    public lazy var detailLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .gray
+        return label
+    }()
+    
+    // MARK: - Lifecycle Methods
+    
     open override func setupSubviews() {
         super.setupSubviews()
-        messageContainerView.addSubview(nameLabel)
-        messageContainerView.addSubview(callIcon)
+        messageContainerView.addSubview(iconImageView)
+        messageContainerView.addSubview(titleLabel)
+        messageContainerView.addSubview(detailLabel)
         setupConstraints()
     }
-
+    
     open func setupConstraints() {
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        detailLabel.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
-            callIcon.widthAnchor.constraint(equalToConstant: 24),
-            callIcon.heightAnchor.constraint(equalToConstant: 24),
-            callIcon.leadingAnchor.constraint(equalTo: messageContainerView.leadingAnchor, constant: 8),
-            callIcon.trailingAnchor.constraint(equalTo: nameLabel.leadingAnchor, constant: -4),
-            callIcon.centerYAnchor.constraint(equalTo: messageContainerView.centerYAnchor),
-            callIcon.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: messageContainerView.trailingAnchor, constant: -10)
+            iconImageView.leftAnchor.constraint(equalTo: messageContainerView.leftAnchor, constant: 10),
+            iconImageView.centerYAnchor.constraint(equalTo: messageContainerView.centerYAnchor),
+            iconImageView.widthAnchor.constraint(equalToConstant: 30),
+            iconImageView.heightAnchor.constraint(equalToConstant: 30),
+
+            titleLabel.leftAnchor.constraint(equalTo: iconImageView.rightAnchor, constant: 10),
+            titleLabel.topAnchor.constraint(equalTo: messageContainerView.topAnchor, constant: 8),
+            titleLabel.rightAnchor.constraint(equalTo: messageContainerView.rightAnchor, constant: -10),
+
+            detailLabel.leftAnchor.constraint(equalTo: iconImageView.rightAnchor, constant: 10),
+            detailLabel.bottomAnchor.constraint(equalTo: messageContainerView.bottomAnchor, constant: -8),
+            detailLabel.rightAnchor.constraint(equalTo: messageContainerView.rightAnchor, constant: -10)
         ])
     }
-
-    open override func configure(with message: MessageType, at indexPath: IndexPath, and messagesCollectionView: MessagesCollectionView) {
-        super.configure(with: message, at: indexPath, and: messagesCollectionView)
-        let textColor = messagesCollectionView.messagesDisplayDelegate?.textColor(for: message, at: indexPath, in: messagesCollectionView)
-        if case let .call(callItem) = message.kind {
-            nameLabel.text = callItem.displayText
-            nameLabel.textColor = textColor
-            callIcon.image = UIImage.messageKitImageWith(type: callItem.hasVideo ? .video_call : .audio_call)
-        }
+    
+    open override func prepareForReuse() {
+        super.prepareForReuse()
+        iconImageView.image = nil
+        titleLabel.text = nil
+        detailLabel.text = nil
     }
+    
+    // MARK: - Configuration
+    
+    open override func configure(
+        with message: MessageType,
+        at indexPath: IndexPath,
+        and messagesCollectionView: MessagesCollectionView
+    ) {
+        super.configure(with: message, at: indexPath, and: messagesCollectionView)
+        
+        guard case .call(let data) = message.kind else {
+            return
+        }
+        
+        configureCell(with: data)
+    }
+    
+    private func configureCell(with callData: CallData) {
+        switch callData.type {
+        case .audio:
+            iconImageView.image = UIImage(systemName: "phone.fill")
+            titleLabel.text = "语音通话"
+        case .video:
+            iconImageView.image = UIImage(systemName: "video.fill")
+            titleLabel.text = "视频通话"
+        }
 
+        let durationString = callData.duration.stringFromTimeInterval()
+        let dateString = formatDate(callData.date)
+        let directionString = callData.isOutgoing ? "已拨出" : "已接听"
+        
+        detailLabel.text = "\(directionString) · \(durationString) · \(dateString)"
+    }
+    
+    // MARK: - Helper Methods
+    
+    private func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd HH:mm"
+        return formatter.string(from: date)
+    }
+}
+
+// Helper extension to format time interval
+extension TimeInterval {
+    func stringFromTimeInterval() -> String {
+        let time = NSInteger(self)
+        let minutes = (time / 60) % 60
+        let seconds = time % 60
+        return String(format: "%0.2d:%0.2d", minutes, seconds)
+    }
 }

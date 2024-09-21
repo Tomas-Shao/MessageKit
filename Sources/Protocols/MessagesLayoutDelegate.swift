@@ -403,6 +403,15 @@ extension MessagesLayoutDelegate {
     nil
   }
 
+    func callCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CallMessageSizeCalculator? {
+      nil
+    }
+
+    func transactionCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> TransactionMessageSizeCalculator? {
+      nil
+    }
+
+
   public func customCellSizeCalculator(
     for _: MessageType,
     at _: IndexPath,
@@ -415,4 +424,18 @@ extension MessagesLayoutDelegate {
   public func callCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator? {
     return nil
   }
+}
+
+open class TransactionMessageSizeCalculator: MessageSizeCalculator {
+    open override func messageContainerSize(for message: MessageType, at indexPath: IndexPath) -> CGSize {
+        // 根据 TransactionCell 的内容调整这些值
+        return CGSize(width: 260, height: 130)
+    }
+}
+
+open class CallMessageSizeCalculator: MessageSizeCalculator {
+    open override func messageContainerSize(for message: MessageType, at indexPath: IndexPath) -> CGSize {
+        // 根据 CallCell 的内容调整这些值
+        return CGSize(width: 250, height: 60)
+    }
 }

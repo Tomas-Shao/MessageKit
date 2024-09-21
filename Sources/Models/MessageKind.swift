@@ -55,7 +55,10 @@ public enum MessageKind {
   case contact(ContactItem)
 
   /// A call message
-  case call(CallItem)
+  case call(CallData)
+
+  /// A transaction message
+  case transaction(TransactionData)
 
   /// A link preview message.
   case linkPreview(LinkItem)
@@ -65,10 +68,4 @@ public enum MessageKind {
   ///   - MessagesDataSource: customCell(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UICollectionViewCell
   ///   - MessagesLayoutDelegate: customCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator
   case custom(Any?)
-
-  // MARK: - Not supported yet
-
-//    case system(String)
-//
-//    case placeholder
 }

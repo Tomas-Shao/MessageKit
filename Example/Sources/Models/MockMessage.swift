@@ -59,12 +59,6 @@ private struct ImageMediaItem: MediaItem {
   }
 }
 
-struct MockCallItem: CallItem {
-    var hasVideo: Bool
-    var duration: Int
-    var title: String
-}
-
 // MARK: - MockAudioItem
 
 private struct MockAudioItem: AudioItem {
@@ -170,9 +164,12 @@ internal struct MockMessage: MessageType {
     self.init(kind: .linkPreview(linkItem), user: user, messageId: messageId, date: date)
   }
 
-  init(callItem: CallItem, user: MockUser, messageId: String, date: Date) {
-      self.init(kind: .call(callItem), user: user, messageId: messageId, date: date)
-  }  
+  init(callItem: CallData, user: MockUser, messageId: String, date: Date) {
+    self.init(kind: .call(callItem), user: user, messageId: messageId, date: date)
+  }
+  init(transactionData: TransactionData, user: MockUser, messageId: String, date: Date) {
+      self.init(kind: .transaction(transactionData), user: user, messageId: messageId, date: date)
+  }
 
   // MARK: Internal
   var state: MessageState

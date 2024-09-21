@@ -46,6 +46,7 @@ final internal class SampleData {
     case Custom
     case ShareContact
     case call
+    case transaction
   }
 
   static let shared = SampleData()
@@ -111,9 +112,12 @@ final internal class SampleData {
       thumbnailImage: UIImage(named: "mkorglogo")!)
   }
 
-  let callItem: (() -> MockCallItem) = {
-      MockCallItem(hasVideo: true, duration: 100, title: "聊天时长")
+  let callItem: (() -> CallData) = {
+    CallData(type: .audio, duration: 30.0, date: Date(), isOutgoing: true)
   }
+   let transactionItem: (() -> TransactionData) = {
+       TransactionData(date: Date(), amount: "200", currency: "BGL", status: "success", detailsURL: URL(string: "https://www.baidu.com")!)
+   }
 
   var currentSender: MockUser {
     steven
@@ -195,10 +199,11 @@ final internal class SampleData {
   }
 
   func randomMessageType() -> MessageTypes {
-    MessageTypes.allCases.compactMap {
-      guard UserDefaults.standard.bool(forKey: "\($0.rawValue)" + " Messages") else { return nil }
-      return $0
-    }.random()!
+//    MessageTypes.allCases.compactMap {
+//      guard UserDefaults.standard.bool(forKey: "\($0.rawValue)" + " Messages") else { return nil }
+//      return $0
+//    }.random()!
+      return [.call, .transaction].random()!
   }
 
   // swiftlint:disable cyclomatic_complexity
@@ -241,6 +246,8 @@ final internal class SampleData {
       return MockMessage(contact: contactsToShare.random()!, user: user, messageId: uniqueID, date: date)
     case .call:
         return MockMessage(callItem: callItem(), user: user, messageId: uniqueID, date: date)
+    case .transaction:
+        return MockMessage(transactionData: transactionItem(), user: user, messageId: uniqueID, date: date)
     }
   }
 

@@ -180,9 +180,13 @@ open class MessagesViewController: UIViewController, UICollectionViewDelegateFlo
     case .custom:
       return messagesDataSource.customCell(for: message, at: indexPath, in: messagesCollectionView)
     case .call:
-        let cell = messagesCollectionView.dequeueReusableCell(CallMessageCall.self, for: indexPath)
-        cell.configure(with: message, at: indexPath, and: messagesCollectionView)
-        return cell
+      let cell = messagesCollectionView.dequeueReusableCell(CallCell.self, for: indexPath)
+      cell.configure(with: message, at: indexPath, and: messagesCollectionView)
+      return cell
+    case .transaction:
+    let cell = messagesCollectionView.dequeueReusableCell(TransactionCell.self, for: indexPath)
+      cell.configure(with: message, at: indexPath, and: messagesCollectionView)
+      return cell
     }
   }
 
