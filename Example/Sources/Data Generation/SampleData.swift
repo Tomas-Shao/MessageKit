@@ -113,8 +113,8 @@ final internal class SampleData {
   }
 
   let callItem: (() -> CallData) = {
-      [CallData(type: .audio, duration: 30.0, date: Date(), isOutgoing: true),
-       CallData(type: .video, duration: 40.0, date: Date(), isOutgoing: false)].random()!
+      [CallData(type: .audio, duration: 30.0, isOutgoing: true),
+       CallData(type: .video, duration: 40.0, isOutgoing: false)].random()!
   }
    let transactionItem: (() -> TransactionData) = {
        [TransactionData(amount: "200", currency: "BGL", status: nil, detailsURL: URL(string: "https://www.baidu.com")!, chainId: 1),

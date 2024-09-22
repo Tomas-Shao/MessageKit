@@ -15,13 +15,11 @@ public enum CallType {
 public struct CallData {
     public let type: CallType
     public let duration: TimeInterval
-    public let date: Date
     public let isOutgoing: Bool
 
-    public init(type: CallType, duration: TimeInterval, date: Date, isOutgoing: Bool) {
+    public init(type: CallType, duration: TimeInterval, isOutgoing: Bool) {
         self.type = type
         self.duration = duration
-        self.date = date
         self.isOutgoing = isOutgoing
     }
 }
@@ -115,10 +113,9 @@ open class CallCell: MessageContentCell {
         }
 
         let durationString = callData.duration.stringFromTimeInterval()
-        let dateString = formatDate(callData.date)
         let directionString = callData.isOutgoing ? "已拨出" : "已接听"
         
-        detailLabel.text = "\(directionString) · \(durationString) · \(dateString)"
+        detailLabel.text = "\(directionString) · \(durationString)"
     }
     
     // MARK: - Helper Methods
