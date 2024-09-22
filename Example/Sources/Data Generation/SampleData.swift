@@ -117,8 +117,8 @@ final internal class SampleData {
        CallData(type: .video, duration: 40.0, date: Date(), isOutgoing: false)].random()!
   }
    let transactionItem: (() -> TransactionData) = {
-       [TransactionData(date: Date(), amount: "200", currency: "BGL", status: "pending", detailsURL: URL(string: "https://www.baidu.com")!),
-        TransactionData(date: Date(), amount: "400", currency: "ETH", status: "done", detailsURL: URL(string: "https://www.baidu.com")!)].random()!
+       [TransactionData(amount: "200", currency: "BGL", status: nil, detailsURL: URL(string: "https://www.baidu.com")!, chainId: 1),
+        TransactionData(amount: "400", currency: "ETH", status: "Cancel", detailsURL: URL(string: "https://www.baidu.com")!, chainId: 2)].random()!
 
 //       转完账以后，回到聊天界面
 //       should show the payment in chat view

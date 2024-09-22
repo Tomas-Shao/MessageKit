@@ -8,18 +8,18 @@
 import UIKit
 
 public struct TransactionData {
-    let date: Date
-    let amount: String
-    let currency: String
-    let status: String
-    let detailsURL: URL
+    public let amount: String
+    public let currency: String
+    public let status: String?
+    public let detailsURL: URL
+    public let chainId: Int
 
-    public init(date: Date, amount: String, currency: String, status: String, detailsURL: URL) {
-        self.date = date
+    public init(amount: String, currency: String, status: String?, detailsURL: URL, chainId: Int) {
         self.amount = amount
         self.currency = currency
         self.status = status
         self.detailsURL = detailsURL
+        self.chainId = chainId
     }
 }
 
@@ -29,19 +29,21 @@ open class TransactionCell: MessageContentCell {
     
     public lazy var customContentView: UIView = {
         let view = UIView()
+        view.clipsToBounds = true
         view.backgroundColor = .systemBackground
         view.layer.cornerRadius = 12
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.systemGray5.cgColor
-        view.clipsToBounds = true
         return view
     }()
     
-    public lazy var dateLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.textColor = .secondaryLabel
-        return label
+    public lazy var iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .red
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 12
+        return imageView
     }()
     
     public lazy var transferLabel: UILabel = {
@@ -54,6 +56,8 @@ open class TransactionCell: MessageContentCell {
     public lazy var statusLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .systemRed
+        label.isHidden = true
         return label
     }()
     
@@ -61,7 +65,8 @@ open class TransactionCell: MessageContentCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .systemBlue
-        label.text = "Tap to view transaction details"
+        label.text = "Tap to view details"
+        label.isHidden = true
         return label
     }()
     
@@ -70,7 +75,7 @@ open class TransactionCell: MessageContentCell {
     open override func setupSubviews() {
         super.setupSubviews()
         messageContainerView.addSubview(customContentView)
-        customContentView.addSubview(dateLabel)
+        customContentView.addSubview(iconImageView)
         customContentView.addSubview(transferLabel)
         customContentView.addSubview(statusLabel)
         customContentView.addSubview(detailsLabel)
@@ -79,7 +84,7 @@ open class TransactionCell: MessageContentCell {
     
     open func setupConstraints() {
         customContentView.translatesAutoresizingMaskIntoConstraints = false
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
         transferLabel.translatesAutoresizingMaskIntoConstraints = false
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         detailsLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -90,22 +95,23 @@ open class TransactionCell: MessageContentCell {
             customContentView.leadingAnchor.constraint(equalTo: messageContainerView.leadingAnchor, constant: 4),
             customContentView.trailingAnchor.constraint(equalTo: messageContainerView.trailingAnchor, constant: -4),
             
-            dateLabel.topAnchor.constraint(equalTo: customContentView.topAnchor, constant: 12),
-            dateLabel.leadingAnchor.constraint(equalTo: customContentView.leadingAnchor, constant: 16),
-            dateLabel.trailingAnchor.constraint(equalTo: customContentView.trailingAnchor, constant: -16),
+            iconImageView.leadingAnchor.constraint(equalTo: customContentView.leadingAnchor, constant: 16),
+            iconImageView.centerYAnchor.constraint(equalTo: transferLabel.centerYAnchor),
+            iconImageView.widthAnchor.constraint(equalToConstant: 24),
+            iconImageView.heightAnchor.constraint(equalToConstant: 24),
             
-            transferLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8),
-            transferLabel.leadingAnchor.constraint(equalTo: customContentView.leadingAnchor, constant: 16),
+            transferLabel.topAnchor.constraint(equalTo: customContentView.topAnchor, constant: 16),
+            transferLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 8),
             transferLabel.trailingAnchor.constraint(equalTo: customContentView.trailingAnchor, constant: -16),
-            
+
             statusLabel.topAnchor.constraint(equalTo: transferLabel.bottomAnchor, constant: 8),
-            statusLabel.leadingAnchor.constraint(equalTo: customContentView.leadingAnchor, constant: 16),
+            statusLabel.leadingAnchor.constraint(equalTo: transferLabel.leadingAnchor),
             statusLabel.trailingAnchor.constraint(equalTo: customContentView.trailingAnchor, constant: -16),
             
             detailsLabel.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 8),
-            detailsLabel.leadingAnchor.constraint(equalTo: customContentView.leadingAnchor, constant: 16),
+            detailsLabel.leadingAnchor.constraint(equalTo: transferLabel.leadingAnchor),
             detailsLabel.trailingAnchor.constraint(equalTo: customContentView.trailingAnchor, constant: -16),
-            detailsLabel.bottomAnchor.constraint(equalTo: customContentView.bottomAnchor, constant: -12)
+            detailsLabel.bottomAnchor.constraint(equalTo: customContentView.bottomAnchor, constant: -16)
         ])
     }
     
@@ -116,18 +122,45 @@ open class TransactionCell: MessageContentCell {
             return
         }
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d, yyyy"
-        dateLabel.text = dateFormatter.string(from: transactionData.date)
         transferLabel.text = "Transfer \(transactionData.amount) \(transactionData.currency)"
-        statusLabel.text = transactionData.status
-        statusLabel.textColor = transactionData.status.lowercased() == "success" ? .systemGreen : .systemRed
+        
+        if let status = transactionData.status, status.lowercased() == "cancel" {
+            statusLabel.text = "Cancel"
+            statusLabel.isHidden = false
+            detailsLabel.isHidden = true
+        } else {
+            statusLabel.isHidden = true
+            detailsLabel.isHidden = false
+        }
+        
+        setIcon(for: transactionData.chainId)
     }
     
     open override func prepareForReuse() {
         super.prepareForReuse()
-        dateLabel.text = nil
         transferLabel.text = nil
         statusLabel.text = nil
+        statusLabel.isHidden = true
+        detailsLabel.isHidden = true
+        iconImageView.image = nil
+    }
+    
+    // MARK: - Helper Methods
+    
+    private func setIcon(for chainId: Int) {
+        let iconName: String
+        switch chainId {
+        case 1:
+            iconName = "ethereum_icon"
+        case 56:
+            iconName = "binance_icon"
+        case 137:
+            iconName = "polygon_icon"
+        // 添加更多链的图标
+        default:
+            iconName = "default_icon"
+        }
+        
+        iconImageView.image = UIImage(named: iconName)
     }
 }

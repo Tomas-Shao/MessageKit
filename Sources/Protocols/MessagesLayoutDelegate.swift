@@ -429,7 +429,7 @@ extension MessagesLayoutDelegate {
 open class TransactionMessageSizeCalculator: MessageSizeCalculator {
     open override func messageContainerSize(for message: MessageType, at indexPath: IndexPath) -> CGSize {
         // 根据 TransactionCell 的内容调整这些值
-        return CGSize(width: 260, height: 130)
+        return CGSize(width: 260, height: 90)
     }
 }
 
