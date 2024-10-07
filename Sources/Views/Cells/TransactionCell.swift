@@ -121,6 +121,11 @@ open class TransactionCell: MessageContentCell {
         guard case .transaction(let transactionData) = message.kind else {
             return
         }
+
+        guard let displayDelegate = messagesCollectionView.messagesDisplayDelegate else {
+            fatalError(MessageKitError.nilMessagesDisplayDelegate)
+        }
+
         let textColor = displayDelegate.textColor(for: message, at: indexPath, in: messagesCollectionView)
         transferLabel.textColor = textColor
         statusLabel.textColor = textColor

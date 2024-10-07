@@ -98,7 +98,15 @@ open class CallCell: MessageContentCell {
         guard case .call(let data) = message.kind else {
             return
         }
-        
+
+        guard let displayDelegate = messagesCollectionView.messagesDisplayDelegate else {
+            fatalError(MessageKitError.nilMessagesDisplayDelegate)
+        }
+
+        let textColor = displayDelegate.textColor(for: message, at: indexPath, in: messagesCollectionView)
+        titleLabel.textColor = textColor
+        detailLabel.textColor = textColor
+
         configureCell(with: data)
     }
     
@@ -111,10 +119,6 @@ open class CallCell: MessageContentCell {
             iconImageView.image = UIImage(systemName: "video.fill")
             titleLabel.text = "视频通话"
         }
-
-        let textColor = displayDelegate.textColor(for: message, at: indexPath, in: messagesCollectionView)
-        titleLabel.textColor = textColor
-        detailLabel.textColor = textColor
 
         let durationString = callData.duration.stringFromTimeInterval()
         let directionString = callData.isOutgoing ? "已拨出" : "已接听"
