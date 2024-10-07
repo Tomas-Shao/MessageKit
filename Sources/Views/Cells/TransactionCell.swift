@@ -121,7 +121,11 @@ open class TransactionCell: MessageContentCell {
         guard case .transaction(let transactionData) = message.kind else {
             return
         }
-        
+        let textColor = displayDelegate.textColor(for: message, at: indexPath, in: messagesCollectionView)
+        transferLabel.textColor = textColor
+        statusLabel.textColor = textColor
+        detailsLabel.textColor = textColor
+
         transferLabel.text = "Transfer \(transactionData.amount) \(transactionData.currency)"
         
         if let status = transactionData.status, status.lowercased() == "cancel" {

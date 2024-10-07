@@ -114,6 +114,10 @@ open class CallCell: MessageContentCell {
             titleLabel.text = "视频通话"
         }
 
+        let textColor = displayDelegate.textColor(for: message, at: indexPath, in: messagesCollectionView)
+        titleLabel.textColor = textColor
+        detailLabel.textColor = textColor
+
         let durationString = callData.duration.stringFromTimeInterval()
         let dateString = formatDate(callData.date)
         let directionString = callData.isOutgoing ? "已拨出" : "已接听"
