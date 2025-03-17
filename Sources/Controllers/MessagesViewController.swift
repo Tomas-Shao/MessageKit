@@ -31,8 +31,8 @@ open class MessagesViewController: UIViewController, UICollectionViewDelegateFlo
   // MARK: Lifecycle
 
   deinit {
-    removeMenuControllerObservers()
-    clearMemoryCache()
+      NotificationCenter.default.removeObserver(self, name: UIMenuController.willShowMenuNotification, object: nil)
+      MessageStyle.bubbleImageCache.removeAllObjects()
   }
 
   // MARK: Open
@@ -184,7 +184,7 @@ open class MessagesViewController: UIViewController, UICollectionViewDelegateFlo
       cell.configure(with: message, at: indexPath, and: messagesCollectionView)
       return cell
     case .transaction:
-    let cell = messagesCollectionView.dequeueReusableCell(TransactionCell.self, for: indexPath)
+      let cell = messagesCollectionView.dequeueReusableCell(TransactionCell.self, for: indexPath)
       cell.configure(with: message, at: indexPath, and: messagesCollectionView)
       return cell
     }

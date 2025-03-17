@@ -112,7 +112,7 @@ internal struct MockMessage: MessageType {
     self.user = user
     self.messageId = messageId
     self.state = state
-    sentDate = date
+    self.sentDate = date
   }
 
   init(custom: Any?, user: MockUser, messageId: String, date: Date) {

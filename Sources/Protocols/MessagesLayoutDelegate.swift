@@ -27,6 +27,7 @@ import UIKit
 
 /// A protocol used by the `MessagesCollectionViewFlowLayout` object to determine
 /// the size and layout of a `MessageCollectionViewCell` and its contents.
+@MainActor
 public protocol MessagesLayoutDelegate: AnyObject {
   /// Specifies the size to use for a header view.
   ///
@@ -279,8 +280,6 @@ public protocol MessagesLayoutDelegate: AnyObject {
     for message: MessageType,
     at indexPath: IndexPath,
     in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator
-
-  func callCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator?
 }
 
 extension MessagesLayoutDelegate {
@@ -403,15 +402,6 @@ extension MessagesLayoutDelegate {
     nil
   }
 
-    func callCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CallMessageSizeCalculator? {
-      nil
-    }
-
-    func transactionCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> TransactionMessageSizeCalculator? {
-      nil
-    }
-
-
   public func customCellSizeCalculator(
     for _: MessageType,
     at _: IndexPath,
@@ -420,22 +410,4 @@ extension MessagesLayoutDelegate {
   {
     fatalError("Must return a CellSizeCalculator for MessageKind.custom(Any?)")
   }
-
-  public func callCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator? {
-    return nil
-  }
-}
-
-open class TransactionMessageSizeCalculator: MessageSizeCalculator {
-    open override func messageContainerSize(for message: MessageType, at indexPath: IndexPath) -> CGSize {
-        // 根据 TransactionCell 的内容调整这些值
-        return CGSize(width: 260, height: 90)
-    }
-}
-
-open class CallMessageSizeCalculator: MessageSizeCalculator {
-    open override func messageContainerSize(for message: MessageType, at indexPath: IndexPath) -> CGSize {
-        // 根据 CallCell 的内容调整这些值
-        return CGSize(width: 250, height: 60)
-    }
 }

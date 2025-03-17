@@ -166,7 +166,7 @@ open class MessagesCollectionViewFlowLayout: UICollectionViewFlowLayout {
     case .transaction:
         return transactionMessageSizeCalculator
     case .custom:
-        return messagesLayoutDelegate.customCellSizeCalculator(for: message, at: indexPath, in: messagesCollectionView)
+      return messagesLayoutDelegate.customCellSizeCalculator(for: message, at: indexPath, in: messagesCollectionView)
     }
   }
 
