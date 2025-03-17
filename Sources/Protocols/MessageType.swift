@@ -47,7 +47,4 @@ public enum MessageState {
     case error
     case none
     case sending
-
-  /// The kind of message and its underlying kind.
-  var kind: MessageKind { get }
 }
