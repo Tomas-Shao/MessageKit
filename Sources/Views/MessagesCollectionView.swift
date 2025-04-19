@@ -213,6 +213,7 @@ open class MessagesCollectionView: UICollectionView {
     register(ContactMessageCell.self)
     register(TypingIndicatorCell.self)
     register(LinkPreviewMessageCell.self)
+	register(CallMessageCell.self)
     register(MessageReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader)
     register(MessageReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter)
   }

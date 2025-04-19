@@ -45,6 +45,7 @@ final internal class SampleData {
     case Phone
     case Custom
     case ShareContact
+	  case Call
   }
 
   static let shared = SampleData()
@@ -190,10 +191,10 @@ final internal class SampleData {
   }
 
   func randomMessageType() -> MessageTypes {
-    MessageTypes.allCases.compactMap {
-      guard UserDefaults.standard.bool(forKey: "\($0.rawValue)" + " Messages") else { return nil }
-      return $0
-    }.random()!
+//    MessageTypes.allCases.compactMap {
+//      return $0
+//    }.random()!
+	  return .Call
   }
 
   // swiftlint:disable cyclomatic_complexity
@@ -234,6 +235,11 @@ final internal class SampleData {
       return MockMessage(custom: "Someone left the conversation", user: system, messageId: uniqueID, date: date)
     case .ShareContact:
       return MockMessage(contact: contactsToShare.random()!, user: user, messageId: uniqueID, date: date)
+	  case .Call:
+      let isAudioOnly = Bool.random()
+      let statusText = isAudioOnly ? "Duration: 16:45" : "Missed Video Call"
+      let callItem = CallMessage(isAudioOnly: isAudioOnly, statusText: statusText)
+      return MockMessage(callItem: callItem, user: user, messageId: uniqueID, date: date)
     }
   }
 

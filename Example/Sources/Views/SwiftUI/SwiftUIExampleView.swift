@@ -39,7 +39,7 @@ struct SwiftUIExampleView: View {
   }
 
   private func connectToMessageSocket() {
-    MockSocket.shared.connect(with: [SampleData.shared.nathan, SampleData.shared.wu]).onNewMessage { message in
+    MockSocket.shared.connect(with: [SampleData.shared.nathan, SampleData.shared.wu, SampleData.shared.currentSender]).onNewMessage { message in
       self.messages.append(message)
     }
   }

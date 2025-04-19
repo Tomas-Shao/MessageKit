@@ -36,4 +36,15 @@ public protocol MessageType {
 
   /// The kind of message and its underlying kind.
   var kind: MessageKind { get }
+
+  /// The state of message
+  var state: MessageState { get }
+}
+
+public enum MessageState {
+	case byFriend
+	case offline
+	case error
+	case none
+	case sending
 }

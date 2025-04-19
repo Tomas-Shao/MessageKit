@@ -59,6 +59,17 @@ private struct ImageMediaItem: MediaItem {
   }
 }
 
+/// A model representing a call message (audio or video).
+public struct CallMessage: CallItem {
+    public let isAudioOnly: Bool
+    public let statusText: String
+
+    public init(isAudioOnly: Bool, statusText: String) {
+        self.isAudioOnly = isAudioOnly
+        self.statusText = statusText
+    }
+}
+
 // MARK: - MockAudioItem
 
 private struct MockAudioItem: AudioItem {
@@ -107,10 +118,11 @@ struct MockLinkItem: LinkItem {
 internal struct MockMessage: MessageType {
   // MARK: Lifecycle
 
-  private init(kind: MessageKind, user: MockUser, messageId: String, date: Date) {
+ private init(kind: MessageKind, user: MockUser, messageId: String, date: Date, state: MessageState = .byFriend) {
     self.kind = kind
     self.user = user
     self.messageId = messageId
+	 self.state = state
     sentDate = date
   }
 
@@ -163,8 +175,12 @@ internal struct MockMessage: MessageType {
     self.init(kind: .linkPreview(linkItem), user: user, messageId: messageId, date: date)
   }
 
-  // MARK: Internal
+  init(callItem: CallItem, user: MockUser, messageId: String, date: Date) {
+	self.init(kind: .call(callItem), user: user, messageId: messageId, date: date)
+  }
 
+  // MARK: Internal
+  var state: MessageState
   var messageId: String
   var sentDate: Date
   var kind: MessageKind
