@@ -6,7 +6,7 @@ open class TransactionMessageSizeCalculator: MessageSizeCalculator {
         case .transaction(let transactionItem):
             let maxWidth = messageContainerMaxWidth(for: message, at: indexPath)
             let amountWidth = transactionItem.amount.size(withAttributes: [.font: UIFont.boldSystemFont(ofSize: 16)]).width
-            let chainIdWidth = transactionItem.chainId.size(withAttributes: [.font: UIFont.systemFont(ofSize: 12)]).width
+            let chainIdWidth = chainName(for: transactionItem.chainId).size(withAttributes: [.font: UIFont.systemFont(ofSize: 12)]).width
             let iconWidth: CGFloat = 24 // 图标宽度
             let padding: CGFloat = 40 // 左右间距
             let totalWidth = min(maxWidth, max(amountWidth, chainIdWidth) + iconWidth + padding)

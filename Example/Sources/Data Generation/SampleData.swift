@@ -242,7 +242,10 @@ final internal class SampleData {
       let callItem = CallMessage(isAudioOnly: isAudioOnly, statusText: statusText)
       return MockMessage(callItem: callItem, user: user, messageId: uniqueID, date: date)
 	case .Transaction:
-	  let transactionItem = TransactionMessage(currencyIcon: UIImage(systemName: "dollarsign.circle")!, amount: "$100.00", chainId: "Ethereum Mainnet", txHash: UUID().uuidString)
+	 let transactionItem = TransactionMessage(currencyIcon: UIImage(systemName: "dollarsign.circle")!,
+											  amount: String(Int.random(min: 0, max: 100)),
+											  chainId: String(Int.random(min: 0, max: 10)),
+											  txHash: UUID().uuidString)
 	  return MockMessage(transactionItem: transactionItem, user: user, messageId: uniqueID, date: date)
     }
   }

@@ -53,12 +53,37 @@ class TransactionMessageCell: MessageContentCell {
 			amountLabel.font = UIFont.boldSystemFont(ofSize: 16)
 			amountLabel.textColor = textColor
 
-			chainIdLabel.text = transactionItem.chainId
+			chainIdLabel.text = chainName(for: transactionItem.chainId)
 			chainIdLabel.font = UIFont.systemFont(ofSize: 12)
 			chainIdLabel.textColor = textColor
 
 			messageContainerView.layer.cornerRadius = 16
 			messageContainerView.clipsToBounds = true
 		}
+	}
+}
+
+func chainName(for chainID: String) -> String {
+	switch Int(chainID) {
+	case 1:
+		return "Ethereum Mainnet"
+	case 3:
+		return "Ropsten Testnet"
+	case 4:
+		return "Rinkeby Testnet"
+	case 5:
+		return "Goerli Testnet"
+	case 42:
+		return "Kovan Testnet"
+	case 56:
+		return "Binance Smart Chain"
+	case 137:
+		return "Polygon Mainnet"
+	case 80001:
+		return "Polygon Mumbai Testnet"
+	case 11155111:
+		return "Beagle Testnet"
+	default:
+		return "Unknown ChainID:" + chainID
 	}
 }
