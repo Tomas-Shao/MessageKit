@@ -45,7 +45,8 @@ final internal class SampleData {
     case Phone
     case Custom
     case ShareContact
-	  case Call
+	case Call
+	case Transaction
   }
 
   static let shared = SampleData()
@@ -194,7 +195,7 @@ final internal class SampleData {
 //    MessageTypes.allCases.compactMap {
 //      return $0
 //    }.random()!
-	  return .Call
+	  return [.Call, .Transaction].random()!
   }
 
   // swiftlint:disable cyclomatic_complexity
@@ -235,11 +236,14 @@ final internal class SampleData {
       return MockMessage(custom: "Someone left the conversation", user: system, messageId: uniqueID, date: date)
     case .ShareContact:
       return MockMessage(contact: contactsToShare.random()!, user: user, messageId: uniqueID, date: date)
-	  case .Call:
+	case .Call:
       let isAudioOnly = Bool.random()
       let statusText = isAudioOnly ? "Duration: 16:45" : "Missed Video Call"
       let callItem = CallMessage(isAudioOnly: isAudioOnly, statusText: statusText)
       return MockMessage(callItem: callItem, user: user, messageId: uniqueID, date: date)
+	case .Transaction:
+	  let transactionItem = TransactionMessage(currencyIcon: UIImage(systemName: "dollarsign.circle")!, amount: "$100.00", chainId: "Ethereum Mainnet")
+	  return MockMessage(transactionItem: transactionItem, user: user, messageId: uniqueID, date: date)
     }
   }
 

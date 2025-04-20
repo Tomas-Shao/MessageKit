@@ -70,6 +70,18 @@ public struct CallMessage: CallItem {
     }
 }
 
+public struct TransactionMessage: TransactionItem {
+	public var currencyIcon: UIImage
+	public var amount: String
+	public var chainId: String
+
+	public init(currencyIcon: UIImage, amount: String, chainId: String) {
+		self.currencyIcon = currencyIcon
+		self.amount = amount
+		self.chainId = chainId
+	}
+}
+
 // MARK: - MockAudioItem
 
 private struct MockAudioItem: AudioItem {
@@ -177,6 +189,10 @@ internal struct MockMessage: MessageType {
 
   init(callItem: CallItem, user: MockUser, messageId: String, date: Date) {
 	self.init(kind: .call(callItem), user: user, messageId: messageId, date: date)
+  }
+
+  init(transactionItem: TransactionItem, user: MockUser, messageId: String, date: Date) {
+	self.init(kind: .transaction(transactionItem), user: user, messageId: messageId, date: date)
   }
 
   // MARK: Internal

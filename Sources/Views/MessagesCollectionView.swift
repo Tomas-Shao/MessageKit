@@ -214,6 +214,7 @@ open class MessagesCollectionView: UICollectionView {
     register(TypingIndicatorCell.self)
     register(LinkPreviewMessageCell.self)
 	register(CallMessageCell.self)
+	register(TransactionMessageCell.self)
     register(MessageReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader)
     register(MessageReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter)
   }

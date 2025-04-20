@@ -166,10 +166,13 @@ open class MessagesViewController: UIViewController, UICollectionViewDelegateFlo
         return cell
       }
     case .call:
-        // 处理 CallMessageCell
         let cell = messagesCollectionView.dequeueReusableCell(CallMessageCell.self, for: indexPath)
 		cell.configure(with: message, at: indexPath, and: messagesCollectionView)
         return cell
+	case .transaction:
+		let cell = messagesCollectionView.dequeueReusableCell(TransactionMessageCell.self, for: indexPath)
+		cell.configure(with: message, at: indexPath, and: messagesCollectionView)
+		return cell
     case .contact:
       if let cell = messagesDataSource.contactCell(for: message, at: indexPath, in: messagesCollectionView) {
         return cell
