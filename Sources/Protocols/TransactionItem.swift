@@ -10,4 +10,7 @@ public protocol TransactionItem {
 
   /// The chainID of Transaction
   var chainId: String { get }
+
+  /// The txhash of Transaction
+  var txHash: String { get }
 }

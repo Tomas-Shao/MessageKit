@@ -74,11 +74,12 @@ public struct TransactionMessage: TransactionItem {
 	public var currencyIcon: UIImage
 	public var amount: String
 	public var chainId: String
-
-	public init(currencyIcon: UIImage, amount: String, chainId: String) {
+	public var txHash: String
+	public init(currencyIcon: UIImage, amount: String, chainId: String, txHash: String) {
 		self.currencyIcon = currencyIcon
 		self.amount = amount
 		self.chainId = chainId
+		self.txHash = txHash
 	}
 }
 
